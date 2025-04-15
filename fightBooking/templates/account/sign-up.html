@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign up</title>
+    <link rel="stylesheet" href="/static/css/globals.css" />
+    <link rel="stylesheet" href="/static/css/styleguide.css" />
+    <link rel="stylesheet" href="/static/css/styleAcount.css" />
+    <script src="/static/js/validateForm.js"></script>
+    <script src="/static/js/flash_messages.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </head>
+  <body>
+    <!-- Ẩn phần chứa flash messages, dùng để JS đọc dữ liệu -->
+    <script id="flash-messages" type="application/json">
+      {{ get_flashed_messages(with_categories=True) | tojson }}
+    </script>
+    <div class="landing-page">
+      <div class="div">
+        {%block header%} {%include 'layout/header.html'%} {%endblock%}
+        <form action="/sign-up" method="post">
+          <div class="container">
+            <div class="desktop">
+              <div class="overlap-group-wrapper">
+                <div class="overlap-group">
+                  <div class="rectangle"></div>
+                  <p class="text-wrapper">
+                    Đăng ký ngay để thưởng nhiều lợi ích từ AirNava
+                  </p>
+                  <p class="let-s-setup-your">Đăng ký tài khoản AirNava</p>
+                  <div class="div"></div>
+                  <div class="text-wrapper-2">First name</div>
+                  <div class="text-wrapper-3">Country</div>
+                  <div class="text-wrapper-4">Email</div>
+                  <div class="text-wrapper-5">Password</div>
+                  <div class="text-wrapper-6">Phone number</div>
+                  <div class="text-wrapper-7">Last name</div>
+                  <div class="text-wrapper-8">CCCD</div>
+                  <input
+                    type="text"
+                    placeholder="Nhập first name của bạn"
+                    class="rectangle-1"
+                    name="first_name"
+                    tabindex="1"
+                    value="{{ data.get('first_name', '') }}"
+                  />
+                  />
+                  <div class="rectangle-2"></div>
+                  <p class="p">
+                    An toàn mỗi chuyến bay – Niềm tin cho hành trình!
+                  </p>
+                  <p class="text-wrapper-11">AirNava</p>
+                  <div class="text-wrapper-12">Đăng ký tài khoản</div>
+                  <input
+                    type="text"
+                    placeholder="Nhập country của bạn"
+                    class="rectangle-4"
+                    name="country"
+                    required
+                    tabindex="4"
+                    value="Việt Nam"
+                    value="{{ data.get('country', '') }}"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Nhập email của bạn"
+                    class="rectangle-5"
+                    id="email"
+                    name="email"
+                    required
+                    tabindex="3"
+                  />
+
+                  <input
+                    type="password"
+                    placeholder="Password ít nhất 6 kí tự"
+                    class="rectangle-6"
+                    name="password"
+                    id="password"
+                    required
+                    tabindex="7"
+                  />
+                  <button type="submit" class="rectangle-7" tabindex="8">
+                    Đăng ký
+                  </button>
+                  <input
+                    type="text"
+                    placeholder="Nhập phone của bạn"
+                    class="rectangle-8"
+                    name="phone"
+                    tabindex="6"
+                    required
+                    value="{{ data.get('phone', '') }}"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Nhập last name của bạn"
+                    class="rectangle-9"
+                    name="last_name"
+                    required
+                    tabindex="2"
+                    value="{{ data.get('last_name', '') }}"
+                  />
+                  <input
+                    type="text"
+                    placeholder="Nhập cccd của bạn"
+                    class="rectangle-10"
+                    name="cccd"
+                    tabindex="5"
+                    required
+                    value="{{ data.get('cccd', '') }}"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      {%block footer%} {%include 'layout/footer.html'%} {%endblock%}
+    </div>
+  </body>
+</html>

@@ -1,0 +1,137 @@
+{% extends 'admin/master.html' %} {% block body %}
+<div class="container mt-4">
+  <h2 class="mb-4">✈️ Tạo chuyến bay mới</h2>
+
+  <form method="POST">
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="start_airport" class="form-label">Sân bay đi:</label>
+        <select
+          id="start_airport"
+          name="start_airport"
+          class="form-select"
+          required
+        >
+          <option value="">-- Chọn sân bay --</option>
+          {% for airport in airports %}
+          <option value="{{ airport.id }}">
+            {{ airport.name }} - {{ airport.location }}
+          </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label for="end_airport" class="form-label">Sân bay đến:</label>
+        <select
+          id="end_airport"
+          name="end_airport"
+          class="form-select"
+          required
+        >
+          <option value="">-- Chọn sân bay --</option>
+          {% for airport in airports %}
+          <option value="{{ airport.id }}">
+            {{ airport.name }} - {{ airport.location }}
+          </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label for="start_time" class="form-label">Thời gian đi:</label>
+        <input
+          type="datetime-local"
+          id="start_time"
+          name="start_time"
+          class="form-control"
+          required
+        />
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label for="end_time" class="form-label">Thời gian đến:</label>
+        <input
+          type="datetime-local"
+          id="end_time"
+          name="end_time"
+          class="form-control"
+          required
+        />
+      </div>
+
+      <div class="col-md-6 mb-3">
+        <label for="plane" class="form-label">Máy bay:</label>
+        <select id="plane" name="plane_id" class="form-select" required>
+          <option value="">-- Chọn máy bay --</option>
+          {% for plane in planes %}
+          <option value="{{ plane.id }}">{{ plane.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+
+    <hr />
+    <h5 class="mt-4">🛫 Sân bay trung gian (tuỳ chọn)</h5>
+    <div id="layovers-container">
+      <!-- Các chặng trung gian sẽ thêm ở đây -->
+    </div>
+
+    <button type="button" class="btn btn-secondary my-2" onclick="addLayover()">
+      + Thêm sân bay trung gian
+    </button>
+
+    <div class="text-end mt-4">
+      <button type="submit" class="btn btn-primary">Tạo chuyến bay</button>
+    </div>
+  </form>
+</div>
+
+<script>
+  let layoverCount = 0;
+  const maxLayovers = 2; // Dễ dàng điều chỉnh nếu muốn thay đổi giới hạn
+
+  function addLayover() {
+    if (layoverCount >= maxLayovers) {
+      alert(`❌ Chỉ được phép thêm tối đa ${maxLayovers} sân bay trung gian!`);
+      return;
+    }
+
+    layoverCount++;
+    const container = document.getElementById("layovers-container");
+    const layoverHTML = `
+          <div class="row g-3 mb-2 layover-group" data-index="${layoverCount}">
+            <div class="col-md-5">
+              <label class="form-label">Sân bay trung gian ${layoverCount}:</label>
+              <select name="layovers[${layoverCount}][airport_id]" class="form-select" required>
+                <option value="">-- Chọn sân bay --</option>
+                {% for airport in airports %}
+                <option value="{{ airport.id }}">{{ airport.name }} - {{ airport.location }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Giờ đến:</label>
+              <input type="datetime-local" name="layovers[${layoverCount}][arrival]" class="form-control" required />
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Giờ đi:</label>
+              <input type="datetime-local" name="layovers[${layoverCount}][departure]" class="form-control" required />
+            </div>
+            <div class="col-md-1 d-flex align-items-end">
+              <button type="button" class="btn btn-danger btn-sm" onclick="removeLayover(this)">✖</button>
+            </div>
+          </div>
+        `;
+    container.insertAdjacentHTML("beforeend", layoverHTML);
+  }
+
+  function removeLayover(button) {
+    const layoverElement = button.closest(".layover-group");
+    if (layoverElement) {
+      layoverElement.remove();
+      layoverCount--;
+    }
+  }
+</script>
+{%endblock%}

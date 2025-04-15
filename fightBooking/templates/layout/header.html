@@ -1,0 +1,36 @@
+<header class="overlap">
+  <img
+    class="cassie-gallegos"
+    src="/static/img/background.jpg"
+    alt="Background image"
+  />
+  <div class="rectangle"></div>
+  <nav class="frame">
+    <div class="frame-wrapper">
+      <img class="img" src="/static/icon/t.jpg" alt="Logo" />
+    </div>
+    <ul class="navbar">
+      <li><a href="/" class="text-wrapper">Home</a></li>
+      <li><a href="#" class="text-wrapper-2">About</a></li>
+      <li><a href="#" class="text-wrapper-2">Flights</a></li>
+      <li><a href="#" class="text-wrapper-2">Blog</a></li>
+    </ul>
+    <div class="frame-2">
+      {%if current_user.is_authenticated%}
+      <li class="sign-in-wrapper">
+        <span class="text-wrapper"> Chào {{current_user.first_name}}</span>
+      </li>
+      <li class="sign-up-wrapper">
+        <a class="text-wrapper-3" href="/logout">Đăng xuất</a>
+      </li>
+      {%else%}
+      <a href="/sign-in" class="sign-in-wrapper"
+        ><span class="text-wrapper">Sign In</span></a
+      >
+      <a href="/sign-up" class="sign-up-wrapper"
+        ><span class="text-wrapper-3">Sign Up</span></a
+      >
+      {%endif%}
+    </div>
+  </nav>
+</header>

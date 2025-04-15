@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AirNava Flight</title>
+    <link rel="stylesheet" href="/static/css/globals.css" />
+    <link rel="stylesheet" href="/static/css/styleguide.css" />
+    <link rel="stylesheet" href="/static/css/styleAcount.css" />
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/static/js/trip.js" defer></script>
+    <script src="/static/js/validateForm.js" defer></script>
+  </head>
+  <body>
+    <script id="flash-messages" type="application/json">
+      {{ get_flashed_messages(with_categories=True) | tojson }}
+    </script>
+    <div class="landing-page">
+      <div class="div">
+        {%block header%} {%include 'layout/header.html'%}
+        <div class="frame-3">
+          <h1 class="embark-on-your">
+            Take Off Into a World of Unforgettable Journeys
+          </h1>
+          <p class="tempora-facere">
+            Experience the freedom of the skies as you glide toward your dream
+            destination. Our premium aviation services blend luxury, comfort,
+            and adventure to create a travel experience that's truly
+            extraordinary. Book your flight today and embark on your next
+          </p>
+        </div>
+        <div class="frame-4">
+          <form
+            class="flight-search-form"
+            id="flightSearchForm"
+            action="/search"
+            method="post"
+          >
+            <div class="trip-type">
+              <label>
+                <input
+                  type="radio"
+                  name="trip-type"
+                  value="one-way"
+                  id="one-way"
+                  checked
+                />
+                Một chiều
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="trip-type"
+                  value="round-trip"
+                  id="round-trip"
+                />
+                Khứ hồi
+              </label>
+            </div>
+
+            <div class="flight-details">
+              <!-- Cột 1: Nơi đi -->
+              <div class="form-group">
+                <label for="destination">Điểm khởi hành:</label>
+                <select id="destination" name="destination">
+                  <option value="" selected disabled>-- Chọn sân bay --</option>
+                  {% for airport in airports %}
+                  <option value="{{ airport.name }}">
+                    {{ airport.name }} - {{ airport.location }}
+                  </option>
+                  {% endfor %}
+                </select>
+              </div>
+
+              <!-- Cột 2: Nơi đến -->
+              <div class="form-group">
+                <label for="arrival">Điểm đến:</label>
+                <select id="arrival" name="arrival">
+                  <option value="" selected disabled>-- Chọn sân bay --</option>
+                  {% for airport in airports %}
+                  <option value="{{ airport.name }}">
+                    {{ airport.name }} - {{ airport.location }}
+                  </option>
+                  {% endfor %}
+                </select>
+              </div>
+
+              <!-- Cột 3: Check In -->
+              <div class="form-group">
+                <label for="check-in">Ngày đi:</label>
+                <input type="date" id="check-in" name="check-in" />
+              </div>
+
+              <!-- Cột 4: Check Out (Ẩn khi chọn "Một Chiều") -->
+              <div class="form-group" id="check-out-container">
+                <label for="check-out">Ngày về:</label>
+                <input type="date" id="check-out" name="check-out" />
+              </div>
+
+              <!-- Cột 5: Số hành khách -->
+              <div class="form-group">
+                <label for="guests">Hành khách:</label>
+                <input
+                  type="number"
+                  id="guests"
+                  name="guests"
+                  min="1"
+                  value="1"
+                />
+              </div>
+            </div>
+
+            <!-- Button Tìm Kiếm -->
+            <button type="submit" class="search-btn">Tìm chuyến bay</button>
+          </form>
+        </div>
+        {%endblock%}
+        <!-- # ádsd -->
+        {%block content required%} {%endblock%}
+        <!-- # ádsd -->
+        {%block footer%} {%include 'layout/footer.html'%} {%endblock%}
+      </div>
+    </div>
+  </body>
+</html>

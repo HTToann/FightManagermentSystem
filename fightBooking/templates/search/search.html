@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AirNava Flight</title>
+    <link rel="stylesheet" href="/static/css/globals.css" />
+    <link rel="stylesheet" href="/static/css/styleguide.css" />
+    <link rel="stylesheet" href="/static/css/styleAcount.css" />
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <link rel="stylesheet" href="/static/css/styleSearch.css" />
+    <script src="/static/js/storage.js"></script>
+    <script src="/static/js/nav.js" defer></script>
+  </head>
+  <body>
+    <div class="landing-page">
+      <header class="overlap">
+        <img
+          class="cassie-gallegos"
+          src="/static/img/background.jpg"
+          alt="Background image"
+        />
+        <div class="rectangle"></div>
+        <nav class="frame">
+          <div class="frame-wrapper">
+            <img class="img" src="/static/icon/t.jpg" alt="Logo" />
+          </div>
+          <ul class="navbar">
+            <li><a href="/" class="text-wrapper">Home</a></li>
+            <li><a href="#" class="text-wrapper-2">About</a></li>
+            <li><a href="#" class="text-wrapper-2">Flights</a></li>
+            <li><a href="#" class="text-wrapper-2">Blog</a></li>
+          </ul>
+          <div class="frame-2">
+            {%if current_user.is_authenticated%}
+            <li class="sign-in-wrapper">
+              <span class="text-wrapper">
+                Chào {{current_user.first_name}}</span
+              >
+            </li>
+            <li class="sign-up-wrapper">
+              <a class="text-wrapper-3" href="/logout">Đăng xuất</a>
+            </li>
+            {%else%}
+            <a href="/sign-in" class="sign-in-wrapper"
+              ><span class="text-wrapper">Sign In</span></a
+            >
+            <a href="/sign-up" class="sign-up-wrapper"
+              ><span class="text-wrapper-3">Sign Up</span></a
+            >
+            {%endif%}
+          </div>
+        </nav>
+      </header>
+      <div class="container">
+        <div class="header">
+          <div>{{destination}}</div>
+          <div>→</div>
+          <div>{{arrival}}</div>
+        </div>
+        <input
+          type="hidden"
+          id="guestCount"
+          name="guestCount"
+          value="{{guests}}"
+        />
+        <div class="flights">
+          <div class="flight-rank-header">
+            <div class="flight-info">Chuyến bay</div>
+            <!-- Tiêu đề cột chuyến bay -->
+            <div class="rank-container">
+              {% for ticket_class in flight_ticket_classes.values()|first %}
+              <div class="ticket-rank">
+                {{ ticket_class.name.split(" - ")[0] }}
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          {% for flight in flights %}
+          <div class="flight-card">
+            <div class="time">
+              <div><strong>{{ flight["plane_name"] }}</strong></div>
+              <!-- Tên máy bay -->
+              <div>{{ flight["start_time"] }} → {{ flight["end_time"] }}</div>
+              <!-- Giờ bay -->
+            </div>
+
+            <!-- Hiển thị các hạng vé theo dạng cột -->
+            <div class="prices">
+              {% for ticket_class in flight_ticket_classes[flight.id] %}
+              <button
+                class="price-button"
+                destination="{{destination}}"
+                arrival="{{arrival}}"
+                data-flight-id="{{ flight.id }}"
+                data-plane-name="{{  flight['plane_name'] }}"
+                data-start-time="{{ flight['start_time'] }}"
+                data-end-time="{{ flight['end_time']  }}"
+                data-rank="{{ ticket_class.name }}"
+                data-price="{{ ticket_class.price }}"
+                data-tax="500000"
+                data-service="200000"
+                onclick="handleSelectTicket(this)"
+              >
+                <div class="price">
+                  {{ "{:,.0f}".format(ticket_class.price).replace(",", ".") }}
+                  VND
+                </div>
+              </button>
+              {% endfor %}
+            </div>
+          </div>
+          {% else %}
+          <p>Không có chuyến bay nào phù hợp.</p>
+          {% endfor %}
+        </div>
+        <!-- Nút "Đi tiếp" căn phải -->
+        <div class="continue-container">
+          <button
+            type="button"
+            class="continue-button"
+            onclick="goToPassengerPage()"
+          >
+            Đi tiếp
+          </button>
+        </div>
+      </div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const priceButtons = document.querySelectorAll(".price-button");
+
+        priceButtons.forEach((button) => {
+          button.addEventListener("click", function () {
+            // Xóa class 'selected' khỏi tất cả các nút
+            priceButtons.forEach((btn) => btn.classList.remove("selected"));
+
+            // Thêm class 'selected' vào nút được bấm
+            this.classList.add("selected");
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

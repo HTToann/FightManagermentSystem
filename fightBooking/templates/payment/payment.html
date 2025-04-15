@@ -1,0 +1,100 @@
+{% extends "base_layout.html" %} {% block content %}
+
+<h3>{{ title }}</h3>
+<div class="table-responsive">
+  <form action="/create_payment" id="create_form" method="post">
+    <input type="hidden" name="data" id="data" />
+    <input type="hidden" name="passenger_info" id="passenger_info" />
+    <input type="hidden" name="seat_id" id="seat_id" value="{{seat_id}}" />
+    <input type="hidden" name="staff_id" id="staff_id" value="{{staff_id}}" />
+
+    <div class="form-group">
+      <label for="language">Loại hàng hóa</label>
+      <select name="order_type" id="order_type" class="form-control">
+        <option value="billpayment">Thanh toán hóa đơn</option>
+        <option value="other">Khác - Xem thêm tại VNPAY</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="order_id">Mã hóa đơn</label>
+      <input
+        class="form-control"
+        id="order_id"
+        name="order_id"
+        type="text"
+        value="{{ payment_id }}"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="amount">Số tiền</label>
+      <input
+        class="form-control"
+        id="amount"
+        name="amount"
+        type="number"
+        value="{{ total | float | int }}"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="order_desc">Nội dung thanh toán</label>
+      <textarea class="form-control" id="order_desc" name="order_desc" rows="2">
+Thanh toán đơn hàng thời gian: {{ current_time.strftime('%Y-%m-%d %H:%M:%S') }}
+            </textarea
+      >
+    </div>
+
+    <div class="form-group">
+      <label for="bank_code">Ngân hàng</label>
+      <select name="bank_code" id="bank_code" class="form-control">
+        <option value="">Không chọn</option>
+        <option value="NCB">Ngân hàng NCB</option>
+        <option value="AGRIBANK">Ngân hàng Agribank</option>
+        <option value="SCB">Ngân hàng SCB</option>
+        <option value="SACOMBANK">Ngân hàng SacomBank</option>
+        <option value="EXIMBANK">Ngân hàng EximBank</option>
+        <option value="MSBANK">Ngân hàng MSBANK</option>
+        <option value="NAMABANK">Ngân hàng NamABank</option>
+        <option value="VNMART">Ví điện tử VnMart</option>
+        <option value="VIETINBANK">Ngân hàng Vietinbank</option>
+        <option value="VIETCOMBANK">Ngân hàng VCB</option>
+        <option value="HDBANK">Ngân hàng HDBank</option>
+        <option value="DONGABANK">Ngân hàng Dong A</option>
+        <option value="TPBANK">Ngân hàng TPBank</option>
+        <option value="OJB">Ngân hàng OceanBank</option>
+        <option value="BIDV">Ngân hàng BIDV</option>
+        <option value="TECHCOMBANK">Ngân hàng Techcombank</option>
+        <option value="VPBANK">Ngân hàng VPBank</option>
+        <option value="MBBANK">Ngân hàng MBBank</option>
+        <option value="ACB">Ngân hàng ACB</option>
+        <option value="OCB">Ngân hàng OCB</option>
+        <option value="IVB">Ngân hàng IVB</option>
+        <option value="VISA">Thanh toán qua VISA/MASTER</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="language">Ngôn ngữ</label>
+      <select name="language" id="language" class="form-control">
+        <option value="vn">Tiếng Việt</option>
+        <option value="en">English</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Thanh toán Redirect</button>
+  </form>
+  <script>
+    const data = {{ data | tojson | safe }};
+    const passengerInfo = {{ passenger_info | tojson | safe }};
+
+    // Điền dữ liệu vào input ẩn khi submit
+    document.getElementById("create_form").addEventListener("submit", function () {
+      document.getElementById("data").value = JSON.stringify(data);
+      document.getElementById("passenger_info").value = JSON.stringify(passengerInfo);
+    });
+  </script>
+</div>
+
+{% endblock %}

@@ -1,0 +1,144 @@
+/* Định dạng chung */
+body {
+    font-family: Arial, sans-serif;
+    background: #1d1d1d;
+    color: white;
+    margin: 0;
+    padding: 0;
+    top: 1000px;
+}
+.passenger-form:not(:last-child) {
+    border-bottom: 1px solid #444;
+  }
+.passenger-form {
+    margin-bottom: 32px; /* Khoảng cách dưới mỗi khối */
+    padding-bottom: 16px;
+    border-bottom: 1px solid #444; /* Tuỳ chọn: thêm đường kẻ phân cách */
+}
+/* Container chính */
+.booking-container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1100px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #222;
+    border-radius: 10px;
+}
+
+/* Thông tin hành khách */
+.passenger-info {
+    width: 60%;
+    background: #2a2a2a;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.passenger-info h2 {
+    color: #FFD700;
+}
+
+.membership {
+    background: #333;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.membership a {
+    color: #FFD700;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Form hành khách */
+.passenger-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.passenger-form label {
+    margin: 10px 0;
+    font-size: 14px;
+}
+
+.passenger-form input {
+    width: 100%;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    background: #444;
+    color: white;
+}
+
+.passenger-form input:focus {
+    outline: 2px solid #FFD700;
+}
+
+/* Thông tin đặt chỗ */
+.booking-summary {
+    width: 35%;
+    background: #AA0000;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.booking-summary h2 {
+    text-align: center;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.trip-info {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    color: black;
+}
+
+.trip-info h3 {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+}
+
+.trip-info .price {
+    font-weight: bold;
+    color: red;
+}
+
+.total {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Nút điều hướng */
+.bottom-nav {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1100px;
+    margin: 20px auto;
+}
+
+.back-button {
+    background: gray;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.next-button {
+    background: #FFD700;
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.next-button:hover {
+    background: #FFAA00;
+}

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thông tin đặt chỗ</title>
+    <link rel="stylesheet" href="/static/css/stylePassenger.css" />
+    <link rel="stylesheet" href="/static/css/styleSeat.css" />
+    <link rel="stylesheet" href="/static/css/globals.css" />
+    <link rel="stylesheet" href="/static/css/styleguide.css" />
+    <link rel="stylesheet" href="/static/css/styleAcount.css" />
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <script src="/static/js/storage.js" defer></script>
+    <script src="/static/js/nav.js" defer></script>
+    <script src="/static/js/seat.js" defer></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        loadPassengerInfo(); // Hiển thị thông tin đặt chỗ từ sessionStorage
+      });
+    </script>
+  </head>
+  <body>
+    <div class="booking-container">
+      <!-- Thông tin hành khách -->
+      <div class="passenger-info">
+        <h2>Thông tin hành khách</h2>
+        <div class="membership">
+          <p>Tận hưởng ưu đãi dành riêng cho thành viên</p>
+          {%if current_user.is_authenticated%}
+          <span class="text-wrapper"> Chào {{current_user.first_name}}</span>
+          {%else%}
+          <a href="{{ url_for('sign_in', next=request.path) }}">Đăng nhập hoặc Đăng ký →</a>
+          {%endif%}
+        </div>
+      <form action ="/seatSelection" method="post">
+          <div id="passengerFormsContainer"> </div>
+      </div>
+               
+      <input type="hidden" name="plane_name" id="plane_name" />
+      <input type="hidden" name="rank" id="rank" />
+      <input type="hidden" name="destination" id="destination" />
+      <input type="hidden" name="arrival" id="arrival" />
+      <input type="hidden" name="start_time" id="start_time" />
+      <input type="hidden" name="end_time" id="end_time" />
+      <input type="hidden" name="price" id="price" />
+      <input type="hidden" name="flight_id" id="flight_id" />
+
+      <!-- Thông tin đặt chỗ -->
+      <div class="booking-summary">
+        <h2>THÔNG TIN ĐẶT CHỖ</h2>
+        <div class="trip-info">
+          <h3>Chuyến đi</h3>
+          <p>
+            <strong
+              ><span id="selected-destination"></span> →
+              <span id="selected-arrival"></span
+            ></strong>
+          </p>
+          <p><strong>Máy bay:</strong> <span id="selected-plane"></span></p>
+          <p>
+            <strong>Thời gian:</strong> <span id="selected-start-time"></span> →
+            <span id="selected-end-time"></span>
+          </p>
+          <p><strong>Hạng vé:</strong> <span id="selected-rank"></span></p>
+          <hr />
+          <p><strong>Giá vé:</strong> <span id="selected-price"></span></p>
+          <hr />
+          <p class="total">Tổng tiền <span id="selected-total-price"></span></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-nav">
+      <button class="back-button" onclick="goBack()">Quay lại</button>
+      <button class="next-button" type="submit">Đi tiếp</button>
+    </form>
+    </div>
+  </body>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const guestCount = parseInt(sessionStorage.getItem("selectedGuestCount")) || 1;
+      const container = document.getElementById("passengerFormsContainer");
+    
+      for (let i = 0; i < guestCount; i++) {
+        const formGroup = document.createElement("div");
+        formGroup.className = "passenger-form";
+        formGroup.innerHTML = `
+          <h3>Hành khách ${i + 1}</h3>
+          <label>Họ <input type="text" name="last_name[]" required placeholder="Nhập họ của bạn"></label>
+          <label>Tên đệm & tên <input type="text" name="first_name[]" required placeholder="Nhập tên đệm và tên"></label>
+          <label>Ngày sinh <input type="date" name="date[]" required></label>
+          <label>Quốc gia <input type="text" name="country[]" value="Việt Nam" required></label>
+          <label>Số điện thoại <input type="tel" name="phone[]" required placeholder="Nhập số điện thoại"></label>
+          <label>Email <input type="email" name="email[]" required placeholder="Nhập email"></label>
+          <label>CMND/Passport <input type="text" name="cccd[]" required placeholder="Nhập số CMND hoặc Passport"></label>
+        `;
+        container.appendChild(formGroup);
+      }
+    });
+    </script>
+</html>

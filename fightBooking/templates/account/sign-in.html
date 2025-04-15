@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign in</title>
+    <link rel="stylesheet" href="/static/css/globals.css" />
+    <link rel="stylesheet" href="/static/css/styleguide.css" />
+    <link rel="stylesheet" href="/static/css/styleAcount.css" />
+    <script src="/static/js/flash_messages.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </head>
+  <body>
+    <!-- Ẩn phần chứa flash messages, dùng để JS đọc dữ liệu -->
+    <script id="flash-messages" type="application/json">
+      {{ get_flashed_messages(with_categories=True) | tojson }}
+    </script>
+    <div class="landing-page">
+      <div class="div">
+        {%block header%} {%include 'layout/header.html'%} {%endblock%}
+        <form action="/sign-in" method="post">
+          <input
+            type="hidden"
+            name="next"
+            value="{{ request.args.get('next', '/') }}"
+          />
+          <div class="container">
+            <div class="desktop">
+              <div class="overlap-group-wrapper">
+                <div class="overlap-group">
+                  <div class="rectangle"></div>
+                  <p class="text-wrapper">
+                    Đăng nhập ngay để thưởng nhiều lợi ích từ AirNava
+                  </p>
+                  <p class="let-s-setup-your">Đăng nhập AirNava</p>
+                  <div class="div"></div>
+                  <div class="text-wrapper-2">Email</div>
+                  <div class="text-wrapper-4">Password</div>
+                  <input
+                    type="text"
+                    placeholder="Nhập email của bạn"
+                    class="rectangle-1"
+                    name="email"
+                    tabindex="1"
+                  />
+                  <div class="rectangle-2"></div>
+                  <p class="p">
+                    An toàn mỗi chuyến bay – Niềm tin cho hành trình!
+                  </p>
+                  <p class="text-wrapper-11">AirNava</p>
+                  <div class="text-wrapper-12">Đăng nhập</div>
+                  <input
+                    style="width: 258px"
+                    type="password"
+                    placeholder="Nhập password của bạn"
+                    class="rectangle-5"
+                    name="password"
+                    required
+                    tabindex="2"
+                  />
+                  <button type="submit" class="rectangle-7" tabindex="8">
+                    Đăng nhập
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      {%block footer%} {%include 'layout/footer.html'%} {%endblock%}
+    </div>
+  </body>
+</html>

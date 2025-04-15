@@ -1,0 +1,172 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #1d1d1d;
+    color: white;
+    text-align: center;
+  }
+  .container {
+    width: 100%;
+    margin: 150px auto;
+    background: #222;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    background: black;
+    padding: 10px 20px;
+    font-size: 22px;
+  }
+  .highlight {
+    background: yellow;
+    color: red;
+    padding: 5px 10px;
+    border-radius: 10px;
+  }
+  .dates {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+  }
+  .date {
+    padding: 10px;
+    background: #333;
+    border-radius: 10px;
+  }
+  .flights {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .flight-rank-header {
+    display: flex; /* Chuyển sang flex để căn chỉnh dễ dàng hơn */
+    justify-content: space-between; /* Đưa "Chuyến bay" về bên trái, Rank về bên phải */
+    align-items: center;
+    background: #222 !important;
+    padding: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #ffd700 !important; /* Màu vàng */
+    text-align: center;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+  .flight-info {
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
+    color: white !important;
+    padding: 10px;
+  }
+  .rank-container {
+    display: flex;
+    gap: 10px; /* Giãn cách giữa các Rank */
+    justify-content: flex-end; /* Đưa Rank về góc phải */
+    flex-wrap: wrap; /* Đảm bảo Rank không bị vỡ layout */
+  }
+  .ticket-rank {
+    font-weight: bold;
+    font-size: 16px; /* Thu nhỏ lại một chút */
+    text-transform: uppercase;
+    color: #ffd700 !important;
+    text-align: center;
+    padding: 6px 12px; /* Giảm padding để thu nhỏ */
+    background: #333 !important;
+    border-radius: 5px;
+    min-width: 120px; /* Thu nhỏ kích thước */
+    margin: 5px;
+  }
+  .flight-card {
+    display: flex;
+    background: #444;
+    padding: 15px;
+    border-radius: 10px;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .time {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .prices {
+    display: flex;
+    gap: 10px;
+  }
+  .price-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    background: #444;
+    color: white;
+    min-width: 120px;
+  }
+  .price-button:hover {
+    background: #b62020;
+    transform: scale(1.05);
+  }
+
+  /* Active hiệu ứng khi bấm */
+  .price-button:active {
+    background: #b62020;
+    transform: scale(0.95);
+  }
+
+  /* Định dạng Rank */
+  .price-button .rank {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #ffd700;
+    margin-bottom: 5px;
+  }
+
+  /* Định dạng giá */
+  .price-button .price {
+    font-size: 14px;
+    color: #fff;
+  }
+  .price-button.selected {
+    background: red !important;
+    color: white;
+    transform: scale(1) !important;
+  }
+  /* Container chứa nút "Đi tiếp" */
+  .continue-container {
+    display: flex;
+    justify-content: flex-end; /* Đưa nút về góc phải */
+    margin-top: 15px;
+    padding-right: 20px; /* Để không bị sát mép */
+  }
+
+  /* Nút "Đi tiếp" */
+  .continue-button {
+    background: #ff4d4d; /* Màu đỏ nổi bật */
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+  }
+
+  /* Hover hiệu ứng */
+  .continue-button:hover {
+    background: #e63939;
+    transform: scale(1.05);
+  }
+
+  /* Khi bấm vào */
+  .continue-button:active {
+    background: #cc3333;
+    transform: scale(0.95);
+  }
